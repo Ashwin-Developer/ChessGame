@@ -806,6 +806,7 @@ MonoBehaviour:
   - {fileID: 1457761172}
   - {fileID: 209010543}
   _highlightPrefab: {fileID: 3575455442422821219, guid: 63e242f84ee31dd49b18bb41b8d1c522, type: 3}
+  _players: {fileID: 751211343}
 --- !u!1 &280411635
 GameObject:
   m_ObjectHideFlags: 0
@@ -2440,7 +2441,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7d0d607122f458d97ba7f7c19066613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  row: 7
+  row: 2
   column: 5
   piece: 1
 --- !u!61 &451512800
@@ -5363,8 +5364,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7d0d607122f458d97ba7f7c19066613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  row: 1
-  column: 2
+  row: 3
+  column: 0
   piece: 0
 --- !u!61 &1723691869
 BoxCollider2D:

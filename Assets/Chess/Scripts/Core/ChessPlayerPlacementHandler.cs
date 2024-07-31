@@ -6,9 +6,9 @@ namespace Chess.Scripts.Core {
     
     public enum ChessPiece
     {
-        pawn,
+        Pawn,
         king,
-        rook,
+        Rook,
         Bhishop,
         Queen,
         Knight
@@ -28,28 +28,35 @@ namespace Chess.Scripts.Core {
 
         internal void StraightMovements()
         {
-            //for vertical highlights
-            for (int i = 0; i < _boardSize; i++)
+            // For vertical highlights
+            for (int i = row + 1; i < _boardSize; i++)
             {
-                if (i != row)
-                {
-                    _boardPlacementHandler.Highlight(i, column);
-                }
+                if (_boardPlacementHandler.IsTileOccupied(i, column)) break;
+                _boardPlacementHandler.Highlight(i, column);
             }
 
-            //for horizontal highlights
-            for (int i = 0; i < _boardSize; i++)
+            for (int i = row - 1; i >= 0; i--)
             {
-                if (i != column)
-                {
-                    _boardPlacementHandler.Highlight(row, i);
-                }
+                if (_boardPlacementHandler.IsTileOccupied(i, column)) break;
+                _boardPlacementHandler.Highlight(i, column);
+            }
+
+            // For horizontal highlights
+            for (int i = column + 1; i < _boardSize; i++)
+            {
+                if (_boardPlacementHandler.IsTileOccupied(row, i)) break;
+                _boardPlacementHandler.Highlight(row, i);
+            }
+
+            for (int i = column - 1; i >= 0; i--)
+            {
+                if (_boardPlacementHandler.IsTileOccupied(row, i)) break;
+                _boardPlacementHandler.Highlight(row, i);
             }
         }
 
         internal void DiagonalMovements()
         {
-            // For diagonal movements
             int[] directions = { 1, -1 };
 
             foreach (var dirX in directions)
@@ -65,15 +72,11 @@ namespace Chess.Scripts.Core {
 
                         if (x >= 0 && x < _boardSize && y >= 0 && y < _boardSize)
                         {
-                            // Highlight the tile
+                            if (_boardPlacementHandler.IsTileOccupied(x, y)) break;
                             _boardPlacementHandler.Highlight(x, y);
-
-                            // Stop if the tile is occupied (example: you can add additional logic for this)
-                            // Example: if (IsTileOccupied(x, y)) break;
                         }
                         else
                         {
-                            // Break if out of board bounds
                             break;
                         }
                     }
@@ -85,9 +88,9 @@ namespace Chess.Scripts.Core {
         internal void PawnPossibleMoves()
         {
             _boardPlacementHandler.ClearHighlights();
-            Debug.Log("Pawns possible moves called");
-            for (int i = 1; i <= 2; i++) 
+            for (int i = 1; i <= 2; i++)
             {
+                if (_boardPlacementHandler.IsTileOccupied(row + i, column)) break;
                 _boardPlacementHandler.Highlight(row + i, column);
             }
         }
@@ -123,8 +126,7 @@ namespace Chess.Scripts.Core {
         {
             Debug.Log("Knight's possible moves called");
             _boardPlacementHandler.ClearHighlights();
-            int[,] knightMoves = new int[,]
-            {
+            int[,] knightMoves = new int[,] {
                 { 2, 1 }, { 2, -1 }, { -2, 1 }, { -2, -1 },
                 { 1, 2 }, { 1, -2 }, { -1, 2 }, { -1, -2 }
             };
@@ -136,7 +138,10 @@ namespace Chess.Scripts.Core {
 
                 if (newRow >= 0 && newRow < _boardSize && newCol >= 0 && newCol < _boardSize)
                 {
-                    _boardPlacementHandler.Highlight(newRow, newCol);
+                    if (!_boardPlacementHandler.IsTileOccupied(newRow, newCol))
+                    {
+                        _boardPlacementHandler.Highlight(newRow, newCol);
+                    }
                 }
             }
         }
@@ -146,10 +151,8 @@ namespace Chess.Scripts.Core {
         {
             Debug.Log("King's possible moves called");
 
-            // Possible move offsets for the king
             _boardPlacementHandler.ClearHighlights();
-            int[,] kingMoves = new int[,]
-            {
+            int[,] kingMoves = new int[,] {
                 { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 },
                 { 1, 1 }, { 1, -1 }, { -1, 1 }, { -1, -1 }
             };
@@ -161,10 +164,15 @@ namespace Chess.Scripts.Core {
 
                 if (newRow >= 0 && newRow < _boardSize && newCol >= 0 && newCol < _boardSize)
                 {
-                    _boardPlacementHandler.Highlight(newRow, newCol);
+                    if (!_boardPlacementHandler.IsTileOccupied(newRow, newCol))
+                    {
+                        _boardPlacementHandler.Highlight(newRow, newCol);
+                    }
                 }
             }
         }
 
+        
     }
+
 }

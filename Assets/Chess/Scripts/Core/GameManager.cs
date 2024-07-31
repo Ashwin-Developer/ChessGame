@@ -1,6 +1,4 @@
 using Chess.Scripts.Core;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -24,37 +22,37 @@ public class GameManager : MonoBehaviour
     //Checking specific piece and calling the specific method
     internal void PieceHandler(ChessPlayerPlacementHandler player)
     {
-        
-        if(player != null)
+        if (player != null)
         {
-            if(player.piece == ChessPiece.pawn)
+            switch (player.piece)
             {
-                player.PawnPossibleMoves();
-            }
+                case ChessPiece.Pawn:
+                    player.PawnPossibleMoves();
+                    break;
 
-            else if (player.piece == ChessPiece.rook)
-            {
-                player.RookPossibleMoves();
-            }
+                case ChessPiece.Rook:
+                    player.RookPossibleMoves();
+                    break;
 
-            else if (player.piece == ChessPiece.Bhishop)
-            {
-                player.BhishopPossibleMoves();
-            }
+                case ChessPiece.Bhishop:
+                    player.BhishopPossibleMoves();
+                    break;
 
-            else if(player.piece == ChessPiece.Queen)
-            {
-                player.QueenPossibleMoves();
-            }
+                case ChessPiece.Queen:
+                    player.QueenPossibleMoves();
+                    break;
 
-            else if(player.piece == ChessPiece.Knight)
-            {
-                player.KnightPossibleMoves();
-            }
+                case ChessPiece.Knight:
+                    player.KnightPossibleMoves();
+                    break;
 
-            else if (player.piece == ChessPiece.king)
-            {
-                player.KingPossibleMovements();
+                case ChessPiece.king:
+                    player.KingPossibleMovements();
+                    break;
+
+                default:
+                    Debug.LogWarning("Unknown chess piece type.");
+                    break;
             }
         }
     }

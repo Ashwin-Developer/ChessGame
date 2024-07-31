@@ -1,12 +1,15 @@
 using System;
 using UnityEngine;
 using System.Diagnostics.CodeAnalysis;
+using System.Collections.Generic;
+using Chess.Scripts.Core;
 
 [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
 public sealed class ChessBoardPlacementHandler : MonoBehaviour {
     [SerializeField] private GameObject[] _rowsArray;
     [SerializeField] private GameObject _highlightPrefab;
     private GameObject[,] _chessBoard;
+    [SerializeField] private GameObject _players;
 
     internal static ChessBoardPlacementHandler Instance;
 
@@ -53,6 +56,20 @@ public sealed class ChessBoardPlacementHandler : MonoBehaviour {
                 }
             }
         }
+    }
+
+
+    internal bool IsTileOccupied(int row, int column)
+    {
+        foreach (Transform piece in _players.transform)
+        {
+            var pieceHandler = piece.GetComponent<ChessPlayerPlacementHandler>();
+            if (pieceHandler != null && pieceHandler.row == row && pieceHandler.column == column)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
 
