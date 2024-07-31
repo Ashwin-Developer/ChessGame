@@ -1,6 +1,4 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 namespace Chess.Scripts.Core {
     
@@ -174,5 +172,5 @@ namespace Chess.Scripts.Core {
 
         
     }
-
+    
 }
